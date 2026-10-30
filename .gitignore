@@ -227,7 +227,6 @@ player_config.json
 CLAUDE.md
 craftax/
 tmp_baselines/
-experiments/
 wandb/
 levels/
 checkpoints/

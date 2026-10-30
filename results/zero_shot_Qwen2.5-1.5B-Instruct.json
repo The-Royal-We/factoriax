@@ -1,0 +1,81 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "parse_rate": 1.0,
+  "mean_normalised": 0.2578125,
+  "nmi": 0.0067962732559017375,
+  "choice_entropy": 0.625262405223423,
+  "per_variant": {
+    "0": {
+      "parse_rate": 1.0,
+      "mean_normalised": 0.28125,
+      "examples": [
+        [
+          "BUILD iron 4\nBUILD copper 4",
+          "BUILD iron 2\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 4\nBUILD copper 4",
+          "BUILD copper 2\nBUILD iron 2"
+        ],
+        [
+          "BUILD iron 2\nBUILD copper 2",
+          "BUILD iron 2\nBUILD copper 2"
+        ]
+      ]
+    },
+    "1": {
+      "parse_rate": 1.0,
+      "mean_normalised": 0.25,
+      "examples": [
+        [
+          "BUILD iron 2\nBUILD copper 2",
+          "BUILD iron 4\nBUILD copper 4"
+        ],
+        [
+          "BUILD iron 2\nBUILD copper 2",
+          "BUILD iron 2\nBUILD copper 2"
+        ],
+        [
+          "BUILD copper 2\nBUILD iron 2",
+          "BUILD iron 4\nBUILD copper 4"
+        ]
+      ]
+    },
+    "2": {
+      "parse_rate": 1.0,
+      "mean_normalised": 0.25,
+      "examples": [
+        [
+          "BUILD copper 2\nBUILD iron 2",
+          "BUILD iron 2\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 2\nBUILD copper 2",
+          "BUILD iron 2\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 2\nBUILD copper 2",
+          "BUILD iron 4\nBUILD copper 4"
+        ]
+      ]
+    },
+    "3": {
+      "parse_rate": 1.0,
+      "mean_normalised": 0.25,
+      "examples": [
+        [
+          "BUILD iron 4\nBUILD copper 4",
+          "BUILD copper 2\nBUILD iron 2"
+        ],
+        [
+          "BUILD iron 4\nBUILD copper 4",
+          "BUILD iron 2\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 4\nBUILD copper 4",
+          "BUILD iron 2\nBUILD copper 2"
+        ]
+      ]
+    }
+  }
+}

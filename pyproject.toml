@@ -97,6 +97,7 @@ convention = "numpy"
 "factoriax/analysis/*.py" = ["N806"]
 # Recursive glob. A "tests/*.py" pattern misses every nested directory.
 "tests/**/*.py" = ["D"]
+"experiments/**/test_*.py" = ["D"]
 
 [tool.mypy]
 python_version = "3.11"

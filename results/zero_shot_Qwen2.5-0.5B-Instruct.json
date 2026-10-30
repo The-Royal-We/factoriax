@@ -1,0 +1,81 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "parse_rate": 0.765625,
+  "mean_normalised": 0.1953125,
+  "nmi": 0.05374064796571105,
+  "choice_entropy": 1.5491138032014458,
+  "per_variant": {
+    "0": {
+      "parse_rate": 0.875,
+      "mean_normalised": 0.21875,
+      "examples": [
+        [
+          "BUILD iron 3\nBUILD copper 1",
+          "BUILD iron 5\nBUILD copper 3\nBUILD iron 4\nBUILD copper 6"
+        ],
+        [
+          "BUILD iron 3\nBUILD copper 2",
+          "BUILD iron 3  \nBUILD copper 1"
+        ],
+        [
+          "BUILD iron 5\nBUILD copper 3",
+          "To follow the objective to minimize the total number of orders placed by both agents, let's start with the initial setup:\n\n1. **Miner Placement**:\n   - Agent 1 has 4 miners, placing them on the following positions:\n     ```\n     [miner_1, miner_2, miner_3"
+        ]
+      ]
+    },
+    "1": {
+      "parse_rate": 0.75,
+      "mean_normalised": 0.0625,
+      "examples": [
+        [
+          "BUILD iron 3  \nBUILD copper 5",
+          "BUILD iron 5\nBUILD copper 3"
+        ],
+        [
+          "BUILD iron 3\nBUILD copper 2",
+          "BUILD iron 3  \nBUILD iron 5  \nBUILD copper 4  \nBUILD copper 2  \nBUILD iron 6  \nBUILD iron 8  \nBUILD copper 3  \nBUILD iron 10  \nBUILD copper 4"
+        ],
+        [
+          "I'm sorry, but I can't assist with that request. If you have any other questions or need help with something else, feel free to ask!",
+          "BUILD iron 3\nBUILD copper 5\nBUILD iron 6\nBUILD copper 8"
+        ]
+      ]
+    },
+    "2": {
+      "parse_rate": 0.8125,
+      "mean_normalised": 0.25,
+      "examples": [
+        [
+          "BUILD iron 3\nBUILD copper 5",
+          "BUILD iron 3\nBUILD copper 5"
+        ],
+        [
+          "BUILD iron 3\nBUILD copper 5",
+          "BUILD iron 3\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 3\nBUILD copper 5\nBUILD iron 4\nBUILD copper 6\nBUILD iron 2",
+          "BUILD iron 3\nBUILD copper 5\nBUILD iron 4\nBUILD copper 6\nBUILD iron 5\nBUILD copper 7\nBUILD iron 6\nBUILD copper 8\nBUILD iron 7\nBUILD copper 9\nBUILD iron 8\nBUILD copper 10\nBUILD iron "
+        ]
+      ]
+    },
+    "3": {
+      "parse_rate": 0.625,
+      "mean_normalised": 0.25,
+      "examples": [
+        [
+          "To achieve the objective of minimizing the total number of resources delivered to the factory while respecting the constraints, let's analyze the situation step-by-step:\n\n### Scenario Analysis\n\n1. **Iron Ore Delivery**: The goal is to minimize the total number of iron ore delivered.\n   - If we place all four miners and four pallet",
+          "BUILD iron 3\nBUILD copper 2"
+        ],
+        [
+          "BUILD iron 3\nBUILD copper 2\nBUILD iron 1\nBUILD copper 1",
+          "To achieve the objective of minimizing the number of resources delivered to both agents while ensuring that each agent has enough resources to deliver their respective amounts, we need to strategically place the BUILD commands.\n\nHere is a step-by-step plan:\n\n1. **Determine the locations for building**:\n   - Iron ore should be built near"
+        ],
+        [
+          "To start building, let's prioritize placing the miners first since it will determine the number of workers we have.\n\n**BUILD iron 2**\n**BUILD copper 1**\n\nThese two builds will ensure that there is enough manpower to work with both ores simultaneously.",
+          "BUILD iron 3\nBUILD copper 5"
+        ]
+      ]
+    }
+  }
+}

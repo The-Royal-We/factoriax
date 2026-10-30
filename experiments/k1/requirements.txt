@@ -1,0 +1,6 @@
+# Pinned: ResumableMAGRPO overrides private MAGRPOTrainer methods.
+comlrl @ git+https://github.com/OpenMLRL/CoMLRL@1dd72371cd5064abaafb0a4960278e2fc930fec8
+peft
+transformers
+torch
+datasets
