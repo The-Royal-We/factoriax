@@ -241,3 +241,6 @@ docs/profiling/traces/
 # Profiler output
 profiled.json
 profiles/
+
+# IDE
+.idea/

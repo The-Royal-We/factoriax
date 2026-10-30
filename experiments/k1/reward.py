@@ -1,6 +1,7 @@
 """CoMLRL reward adapter: score each joint completion in Factoriax and log it."""
 
 import json
+import time
 from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Any
@@ -49,6 +50,7 @@ def make_reward_func(
                 rewards.append(reward)
                 row = {
                     "global_step": step_fn(),
+                    "t": time.time(),
                     "variant": variant,
                     "texts": list(texts),
                     "plans": [[list(m) for m in p] for p in r.plans],

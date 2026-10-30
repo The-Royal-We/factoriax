@@ -15,7 +15,10 @@
    ```bash
    !git clone https://github.com/The-Royal-We/factoriax.git && cd factoriax && git checkout k1-ore-split
    !pip install "./factoriax[cuda]" -r factoriax/experiments/k1/requirements.txt
+   !pip uninstall -y torchao
    ```
+
+   Colab preinstalls torchao 0.10. That version is too old for current peft, and peft raises an error at LoRA setup if it finds it. Nothing in this repo uses torchao.
 
 3. Check JAX sees the GPU
 
