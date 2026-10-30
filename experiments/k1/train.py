@@ -6,6 +6,7 @@ import os
 os.environ.setdefault("XLA_PYTHON_CLIENT_MEM_FRACTION", "0.2")
 
 import argparse  # noqa: E402
+import hashlib  # noqa: E402
 import json  # noqa: E402
 import random  # noqa: E402
 import subprocess  # noqa: E402
@@ -62,12 +63,23 @@ def main() -> None:
     p.add_argument("--lr", type=float, default=1e-5)
     p.add_argument("--lora-r", type=int, default=16)
     p.add_argument("--dataset-rows", type=int, default=400)
+    p.add_argument("--wandb-project", default=None)
     args = p.parse_args()
 
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     args.ckpt_dir.mkdir(parents=True, exist_ok=True)
+    wandb_config = None
+    if args.wandb_project:
+        # CoMLRL's wandb.init takes no run id, so pin it via env to resume one run across sessions.
+        ckpt_key = str(args.ckpt_dir.resolve()).encode()
+        os.environ["WANDB_RUN_ID"] = hashlib.sha1(ckpt_key).hexdigest()[:12]
+        os.environ["WANDB_RESUME"] = "allow"
+        wandb_config = {
+            "project": args.wandb_project,
+            "name": f"{args.ckpt_dir.parent.name}/{args.ckpt_dir.name}",
+        }
 
     tok = AutoTokenizer.from_pretrained(args.model)
     lora = LoraConfig(
@@ -103,7 +115,9 @@ def main() -> None:
             num_train_epochs=1000,
             eval_interval=0,
             agent_learning_rate=args.lr,
+            logging_steps=1,
         ),
+        wandb_config=wandb_config,
         ckpt_dir=str(args.ckpt_dir),
         save_every=args.save_every,
         max_steps_this_session=args.max_steps_this_session,

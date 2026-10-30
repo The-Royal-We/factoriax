@@ -13,10 +13,13 @@
 2. Install
 
    ```bash
-   !git clone https://github.com/The-Royal-We/factoriax.git && cd factoriax && git checkout k1-ore-split
+   !rm -rf factoriax && git clone -b k1-ore-split https://github.com/The-Royal-We/factoriax.git
    !pip install "./factoriax[cuda]" -r factoriax/experiments/k1/requirements.txt
    !pip uninstall -y torchao
    ```
+
+   The `rm -rf` matters: on a reused runtime, `git clone` fails because the folder
+   already exists, and training then runs whatever old code is still there.
 
    Colab preinstalls torchao 0.10. That version is too old for current peft, and peft raises an error at LoRA setup if it finds it. Nothing in this repo uses torchao.
 
@@ -28,7 +31,20 @@
    print(jax.devices())  # expect [CudaDevice(id=0)]
    ```
 
-4. Pilot (Task 10 Steps 1–2; done). Rerun this cell after a disconnect, and it resumes from `latest/`.
+4. Log in to W&B (optional). Add `WANDB_API_KEY` under Colab Secrets (the key icon) first.
+
+   ```python
+   import os
+
+   from google.colab import userdata
+
+   os.environ["WANDB_API_KEY"] = userdata.get("WANDB_API_KEY")
+   ```
+
+   Then add `--wandb-project factoriax-k1` to the train commands below. Each
+   checkpoint dir gets one W&B run, and reruns after a disconnect resume it.
+
+5. Pilot (Task 10 Steps 1–2; done). Rerun this cell after a disconnect, and it resumes from `latest/`.
 
    ```bash
    !cd factoriax && python experiments/k1/train.py \
@@ -37,7 +53,7 @@
        --save-every 10 --max-steps-this-session 10 --seed 0
    ```
 
-5. Phase 1 gate: 3 seeds × 150 steps (about 40 min on an A100). Each seed
+6. Phase 1 gate: 3 seeds × 150 steps (about 40 min on an A100). Each seed
    tops up to 150 steps from its own checkpoint, so after a disconnect you just
    rerun the cell. `k1/seed0` is the pilot on the old geometry, so don't reuse it.
 
@@ -63,10 +79,11 @@
        if remaining > 0:
            !cd factoriax && python experiments/k1/train.py \
                --model Qwen/Qwen2.5-1.5B-Instruct --ckpt-dir {ckpt} \
-               --save-every 10 --max-steps-this-session {remaining} --seed {seed}
+               --save-every 10 --max-steps-this-session {remaining} --seed {seed} \
+               --wandb-project factoriax-k1
    ```
 
-6. Gate check. Learning signal: every seed's last-30-step mean normalised score
+7. Gate check. Learning signal: every seed's last-30-step mean normalised score
    is above 0.198 (zero-shot). Coordination: every seed's score is also above
    0.74 (the fixed rule), and the near-patch rate is near 1. The fixed rule gives
    a near-patch rate of 0.5, because it is right only on the variants where agent
