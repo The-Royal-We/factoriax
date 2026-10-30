@@ -20,8 +20,8 @@ def test_format_penalty(tmp_path):
 def test_one_reward_per_aligned_pair(tmp_path):
     f = make_reward_func(tmp_path / "ep.jsonl", step_fn=lambda: 0)
     r = f(
-        ["BUILD iron 4", "??"],
-        ["BUILD copper 4", "BUILD copper 4"],
+        ["BUILD copper 4", "??"],
+        ["BUILD iron 4", "BUILD iron 4"],
         batch_items=[{"variant": 1}],
     )
     assert r == [pytest.approx(1.0), pytest.approx(-0.1)]

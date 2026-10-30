@@ -13,16 +13,19 @@ from factoriax.engine.constants import Action, BlockType, ItemType, Machine
 from factoriax.engine.levels import Level, LevelBuilder, build_state
 from factoriax.engine.state import EnvParams, EnvState
 
-HORIZON = 400
+HORIZON = 100
 NUM_PLAYERS = 2
 PATCHES = ("iron", "copper")
 START_INVENTORY = [(ItemType.MINER, 4), (ItemType.PALLET, 4)]
 MAX_MACHINES = 32
 
-_WIDTH, _HEIGHT = 16, 12
+# Wide map + short horizon: pallets saturate at t=120 and the far patch is
+# ~40 tiles away, so a split that ignores spawn positions scores well below
+# the oracle (see experiments/k1/colab.md, horizon sweep).
+_WIDTH, _HEIGHT = 48, 12
 _ORE_ROW = 2
-_PATCH_XS = (range(2, 6), range(10, 14))
-_SPAWNS = ((3, 9), (12, 9))
+_PATCH_XS = (range(2, 6), range(42, 46))
+_SPAWNS = ((3, 9), (44, 9))
 
 
 class MinerSite(NamedTuple):

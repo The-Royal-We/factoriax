@@ -1,11 +1,13 @@
 """Specialisation metrics over (agent, choice) samples."""
 
-from collections import Counter
+from collections import Counter, defaultdict
 from collections.abc import Hashable, Sequence
 
 import numpy as np
 
+from factoriax.marl.episode import oracle_texts
 from factoriax.marl.macros import Macro
+from factoriax.marl.text import parse_plan
 
 
 def choice(plan: Sequence[Macro]) -> str:
@@ -29,3 +31,25 @@ def nmi(agent_ids: Sequence[int], choices: Sequence[str]) -> float:
         return 0.0
     mutual = h_a + h_c - entropy(list(zip(agent_ids, choices, strict=True)))
     return float(mutual / np.sqrt(h_a * h_c))
+
+
+def last_per_step(rows: Sequence[dict], per_step: int) -> list[dict]:
+    """Keep the last ``per_step`` rows of each step.
+
+    A resumed session replays the steps after its checkpoint, so the log holds
+    the abandoned rows first and the kept ones after.
+    """
+    by_step: defaultdict[int, list[dict]] = defaultdict(list)
+    for r in rows:
+        by_step[r["global_step"]].append(r)
+    return [r for step in sorted(by_step) for r in by_step[step][-per_step:]]
+
+
+def near_patch_rate(rows: Sequence[dict]) -> float:
+    """Return how often an agent's choice matches its oracle patch."""
+    hits = [
+        choice([Macro(*m) for m in plan]) == choice(parse_plan(oracle)[0])
+        for r in rows
+        for plan, oracle in zip(r["plans"], oracle_texts(r["variant"]), strict=True)
+    ]
+    return float(np.mean(hits))

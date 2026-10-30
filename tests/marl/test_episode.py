@@ -38,3 +38,8 @@ def test_rollout_compiles_once():
 def test_unparseable_still_scores():
     r = score_plans(["no idea", "BUILD copper 4"], 0)
     assert r.parsed_ok == [False, True] and r.team_score == 0
+
+
+def test_swapped_split_scores_below_oracle():
+    for v in range(4):
+        assert score_plans(oracle_texts(v)[::-1], v).normalised < 0.6

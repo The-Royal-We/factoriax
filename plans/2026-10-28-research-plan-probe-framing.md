@@ -67,7 +67,7 @@ Factorio stands in for all four: going from ore to rocket bootstraps an industry
 | Phase | Work | Gate to continue | If the gate fails |
 |---|---|---|---|
 | **0. Pipeline** | The K=1 OreSplit plan (Tasks 1–10) | Zero-shot parse rate ≥0.8; checkpoint resume works on the A100; seconds/step measured | Fix the prompt or the trainer; no research yet |
-| **1. Learning signal** | MAGRPO on OreSplit, 3 seeds × 150 steps | Normalised score beats zero-shot beyond seed spread | Try 0.5B vs 1.5B, the reward scale and the group size; if there's still no signal, RQ3 becomes "learning didn't help at this scale", which is still a result |
+| **1. Learning signal** | MAGRPO on OreSplit, 3 seeds × 150 steps | Normalised score beats zero-shot (0.198) beyond seed spread. To count as coordination, it must also beat the fixed-rule score (0.74), and agents must swap patches when spawns swap. Clearing only the first bar means a fixed rule was learned. | Try 0.5B vs 1.5B, the reward scale and the group size; if there's still no signal, RQ3 becomes "learning didn't help at this scale", which is still a result |
 | **2. Structures** | Frozen-LLM structures on OreSplit + TriSplit, N = 2, 4 | Structures differ measurably on at least one metric | Make the tasks harder before going on to scaling |
 | **3. Harder tasks + K>1** | SmeltChain, re-planning, N up to 8 | Oracle and IPPO baselines exist for each task | Drop to the tasks that work |
 | **4. Learning vs design** | Rejection-sampling fine-tuning + MAGRPO on the best structure from Phase 2 | — | — |
